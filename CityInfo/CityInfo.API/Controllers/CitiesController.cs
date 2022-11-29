@@ -7,7 +7,7 @@
     [Route("api/cities")]
     public class CitiesController : ControllerBase
     {
-        //[HttpGet("api/cities")] => this is used if we dont specify [Route("api/cities")] attribute on the top of the controller
+        //TODO: [HttpGet("api/cities")] => this is used if we dont specify [Route("api/cities")] attribute on the top of the controller
         [HttpGet]
         public ActionResult<IEnumerable<CityDto>> GetCities()
         {

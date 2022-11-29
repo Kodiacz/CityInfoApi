@@ -52,7 +52,7 @@
                 },
                 new CityDto()
                 {
-                    Id = 2,
+                    Id = 3,
                     Name = "Paris",
                     Description = "The one with the big tower",
                     PointsOfInterest = new List<PointOfInterestDto>
