@@ -2,7 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class PointOfInteresetUpdateDto
+    public class PointOfInterestUpdateDto
     {
         [Required(ErrorMessage = "You should provide a name value.")]
         [MaxLength(50)]
