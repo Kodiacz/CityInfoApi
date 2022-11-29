@@ -23,7 +23,7 @@
 
             try
             {
-                throw new Exception("Exception sample");
+                //throw new Exception("Exception sample");
 
                 if (city == null)
                 {

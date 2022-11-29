@@ -10,6 +10,12 @@ Log.Logger = new LoggerConfiguration()
 
 var builder = WebApplication.CreateBuilder(args);
 
+//builder.Logging.ClearProviders(); => this will clear all loging providers
+//builder.Logging.AddConsole(); => this will enable console information log
+
+// Here we enable the 3r party library Serilog
+builder.Host.UseSerilog();
+
 // Add services to the container.
 
 builder.Services.AddControllers(options =>
