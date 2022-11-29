@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace CityInfo.API.Models
+﻿namespace CityInfo.API.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class PointOfInteresetForCreationDto
     {
         [Required(ErrorMessage = "You should provide a name value.")]

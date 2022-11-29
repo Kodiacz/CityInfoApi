@@ -71,5 +71,28 @@
 
             return CreatedAtRoute("GetPointOfInterest", new { cityId = cityId, pointOfInterestId = entityPointsOfInterest.Id }, entityPointsOfInterest);
         }
+
+        [HttpPut("{pointOfInterestId}")]
+        public ActionResult UpdatePointOfInterest(int cityId, int pointOfInterestId, PointOfInteresetUpdateDto pointOfInteresetDto)
+        {
+            var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
+
+            if (city == null)
+            {
+                return NotFound();
+            }
+
+            var pointOfInterest = city.PointsOfInterest.FirstOrDefault(p => p.Id == pointOfInterestId);
+
+            if (pointOfInterest == null)
+            {
+                return NotFound();
+            }
+
+            pointOfInterest.Name = pointOfInteresetDto.Name;
+            pointOfInterest.Description = pointOfInteresetDto.Description;
+
+            return NoContent();
+        }
     }
 }
