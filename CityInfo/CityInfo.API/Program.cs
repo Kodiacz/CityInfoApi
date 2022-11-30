@@ -1,3 +1,4 @@
+using CityInfo.API.Services;
 using Microsoft.AspNetCore.StaticFiles;
 using Serilog;
 
@@ -30,6 +31,13 @@ builder.Services.AddControllers(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
+
+//TODO: this states that if its in debug envierment it will use LocalMailService else it will use CloudMailService
+#if DEBUG
+builder.Services.AddTransient<IMailService, LocalMailService>();
+#else
+builder.Services.AddTransient<IMailService, CloudMailService>();
+#endif
 
 var app = builder.Build();
 
