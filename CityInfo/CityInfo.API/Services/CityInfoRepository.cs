@@ -24,8 +24,8 @@ namespace CityInfo.API.Services
             if (includePointsOfInterest)
             {
                 return await context.Cities.Include(x => x.PointOfInteresets)
-                    .Where(c => c.Id == cityId)
-                    .FirstOrDefaultAsync();
+                                           .Where(c => c.Id == cityId)
+                                           .FirstOrDefaultAsync();
             }
 
             return await context.Cities
@@ -35,12 +35,14 @@ namespace CityInfo.API.Services
 
         public async Task<PointOfIntereset?> GetPointOfInteresetForCityAsync(int cityId, int pointOfInterestId)
         {
-            throw new NotImplementedException();
+            return await context.PointOfInteresets
+                                .Where(p => p.CityId == cityId && p.Id == pointOfInterestId)
+                                .FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<PointOfIntereset>> GetPointsOfInterestForCityAsync(int cityId)
         {
-            throw new NotImplementedException();
+            return await context.PointOfInteresets.Where(p => p.CityId == cityId).ToListAsync();
         }
     }
 }
