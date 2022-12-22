@@ -46,6 +46,8 @@ builder.Services.AddDbContext<CityInfoDbContext>(options =>
     options.UseSqlServer(@"Server=LAPTOP-6HEN1T16\SQLEXPRESS;Database=CityInfoDb;Trusted_Connection=True;");
 });
 
+builder.Services.AddScoped<ICityInfoRepository, CityInfoRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
