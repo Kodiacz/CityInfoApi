@@ -16,6 +16,7 @@ namespace CityInfo.API.Entities
         [StringLength(50)]
         public string Name { get; set; } = string.Empty;
 
+        [StringLength(200)]
         public string? Description { get; set; }
 
         public ICollection<PointOfIntereset> PointOfInteresets { get; set; }

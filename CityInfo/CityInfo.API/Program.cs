@@ -1,5 +1,7 @@
+using CityInfo.API.Data;
 using CityInfo.API.Services;
 using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 //TODO: this is how we configure Seri log which is a 3rd party log library
@@ -38,6 +40,11 @@ builder.Services.AddTransient<IMailService, LocalMailService>();
 #else
 builder.Services.AddTransient<IMailService, CloudMailService>();
 #endif
+
+builder.Services.AddDbContext<CityInfoDbContext>(options =>
+{
+    options.UseSqlServer(@"Server=LAPTOP-6HEN1T16\SQLEXPRESS;Database=CityInfoDb;Trusted_Connection=True;");
+});
 
 var app = builder.Build();
 
