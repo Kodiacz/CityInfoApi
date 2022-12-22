@@ -1,17 +1,39 @@
 ﻿namespace CityInfo.API.Controllers
 {
     using CityInfo.API.Models;
+    using CityInfo.API.Services;
     using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
     [Route("api/cities")]
     public class CitiesController : ControllerBase
     {
+        private readonly ICityInfoRepository cityInfoRepo;
+
+        public CitiesController(ICityInfoRepository cityInfoRepo)
+        {
+            this.cityInfoRepo = cityInfoRepo;
+        }
+
         //TODO: [HttpGet("api/cities")] => this is used if we dont specify [Route("api/cities")] attribute on the top of the controller
         [HttpGet]
-        public ActionResult<IEnumerable<CityDto>> GetCities()
+        public async Task<ActionResult<IEnumerable<CityWithoutPointsOfInteresetDto>>> GetCities()
         {
-            return Ok(CitiesDataStore.Current.Cities);
+            var cityEntities = await cityInfoRepo.GetCitiesAsync();
+
+            var result = new List<CityWithoutPointsOfInteresetDto>();
+
+            foreach (var cityEntity in cityEntities)
+            {
+                result.Add(new CityWithoutPointsOfInteresetDto
+                {
+                    Id = cityEntity.Id,
+                    Description = cityEntity.Description,
+                    Name = cityEntity.Name,
+                });
+            }
+
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
