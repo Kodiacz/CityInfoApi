@@ -7,10 +7,17 @@ const testData = [
 
 const CardList = (props) => (
   <div>
-    <Card {...testData[0]}/>
-    <Card {...testData[1]}/>
+    {testData.map(profile => <Card {...profile}/>)}
   </div>
 );
+
+/* this under the hood is represented like that:
+   first it returns arrays of Card components:
+   [<Card />, <Card />, <Card />,]
+   
+   second it it reactDom renders is like that:
+   [React.createElement(), React.createElement(), React.createElement(), ]
+*/
 
 class Card extends React.Component {
 	render() {
