@@ -42,7 +42,7 @@ class Form extends React.Component {
   handleSubmit = async (event) => {
     event.preventDefault();
     const resp = await axios.get(`https://api.github.com/users/${this.state.userName}`);
-    console.log(resp.data.avatar_url)
+    this.props.onSubmit(resp.data)
   };
   
   render() {
@@ -78,7 +78,9 @@ class App extends React.Component {
   }
   
   addNewProfile = (profileData) => {
-    this.props.onSubmit('App', profileData)
+    this.setState(prevState => ({
+      profiles: [...prevState.profiles, profileData]
+    }))
   }
   
 	render() {
