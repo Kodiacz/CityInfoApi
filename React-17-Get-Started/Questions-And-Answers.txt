@@ -1,0 +1,4 @@
+what exactly is an instance => 
+
+it is not good to name variables and components as key words that are used by the language like Number.
+Number is used to convert numbers that are strings to real numbers.
