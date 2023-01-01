@@ -15,7 +15,10 @@ const PlayNumber = props => (
 
 const StarMatch = () => {
   const [stars, setStars] = useState(utils.random(1, 9));
-  
+  // candidateNums
+  // wrongNums
+  // usedNums
+  // availableNums
   return (
     <div className="game">
       <div className="help">
