@@ -2,8 +2,10 @@
 {
     using CityInfo.API.Models;
     using CityInfo.API.Services;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize]
     [ApiController]
     [Route("api/cities")]
     public class CitiesController : ControllerBase

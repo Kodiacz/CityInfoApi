@@ -2,7 +2,9 @@ using CityInfo.API.Data;
 using CityInfo.API.Services;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
+using System.Text;
 
 //TODO: this is how we configure Seri log which is a 3rd party log library
 Log.Logger = new LoggerConfiguration()
@@ -34,6 +36,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
 
+
 //TODO: this states that if its in debug envierment it will use LocalMailService else it will use CloudMailService
 #if DEBUG
 builder.Services.AddTransient<IMailService, LocalMailService>();
@@ -48,6 +51,22 @@ builder.Services.AddDbContext<CityInfoDbContext>(options =>
 
 builder.Services.AddScoped<ICityInfoRepository, CityInfoRepository>();
 
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new()
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = builder.Configuration["Authentication:Issuer"],
+                ValidAudience = builder.Configuration["Authentication:Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey(
+                    Encoding.ASCII.GetBytes(builder.Configuration["Authentication:SecretForKey"])),
+            };
+        }
+    );
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -58,6 +77,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseRouting();
 

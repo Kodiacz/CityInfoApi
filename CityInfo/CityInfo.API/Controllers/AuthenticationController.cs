@@ -76,7 +76,7 @@ namespace CityInfo.API.Controllers
                 userName ?? "",
                 "Simeon",
                 "Yordanov",
-                "Sofia");
+                "New York City");
         }
 
         public class CityInfoUser
